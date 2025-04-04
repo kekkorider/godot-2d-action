@@ -810,3 +810,5 @@ y_sort_enabled = true
 zoom = Vector2(5, 5)
 
 [node name="SceneEntrance" parent="." instance=ExtResource("5_oi8ly")]
+position = Vector2(136, 4)
+player_spawn_position = Vector2(0, 60)
