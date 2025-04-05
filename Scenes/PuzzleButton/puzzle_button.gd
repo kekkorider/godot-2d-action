@@ -2,6 +2,9 @@ extends Area2D
 
 var bodies_on_top := 0
 
+signal pressed
+signal unpressed
+
 @onready var sprite := $AnimatedSprite2D
 
 func _on_body_entered(body: Node2D) -> void:
@@ -10,7 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 
   if bodies_on_top == 1:
     sprite.play('pressed')
-
+    pressed.emit()
 
 func _on_body_exited(body: Node2D) -> void:
   if body.is_in_group('pushable') or body is Player:
@@ -18,3 +21,4 @@ func _on_body_exited(body: Node2D) -> void:
 
     if bodies_on_top == 0:
       sprite.play('unpressed')
+      unpressed.emit()

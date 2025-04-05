@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://4o6uo54bx7id"]
+[gd_scene load_steps=14 format=4 uid="uid://4o6uo54bx7id"]
 
 [ext_resource type="PackedScene" uid="uid://box0cvn7lrchr" path="res://Scenes/Player/player.tscn" id="1_2p8i2"]
 [ext_resource type="Texture2D" uid="uid://vntmf70fbvws" path="res://Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetFloor.png" id="1_l6yvh"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c2w4xsc6e13s2" path="res://Scenes/SceneEntrance/scene_entrance.tscn" id="5_oi8ly"]
 [ext_resource type="PackedScene" uid="uid://c70jsrx46u8ai" path="res://Scenes/Block/block.tscn" id="6_12ovb"]
 [ext_resource type="PackedScene" uid="uid://b6p06omudhof7" path="res://Scenes/PuzzleButton/puzzle_button.tscn" id="7_ohrk8"]
+[ext_resource type="PackedScene" uid="uid://comx1s26t4g12" path="res://Scenes/LockedDoor/locked_door.tscn" id="8_elpgg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04h35"]
 texture = ExtResource("1_l6yvh")
@@ -815,8 +816,14 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD7//7/AAAAAAIAAAD8////AAAAAAIAAAD6//v/AAAAAAIAAAD3//j/AAAAAAIAAAD3//r/AAAAAAIAAAD0//b/AAAAAAIAAADz//n/AAAAAAIAAAD1//3/AAAAAAIAAAD0////AAAAAAIAAADy//z/AAAAAAIAAAABAPP/AAAAAAIAAAABAPj/AAAAAAIAAAADAPP/AAAAAAIAAAADAPT/AAAAAAIAAAADAPX/AAAAAAIAAAADAPj/AAAAAAIAAAAEAPX/AAAAAAIAAAAFAPL/AAAAAAIAAAAFAPT/AAAAAAIAAAAFAPn/AAAAAAIAAAAFAPv/AAAAAAIAAAAGAPf/AAAAAAIAAAAGAPv/AAAAAAIAAAAHAPL/AAAAAAIAAAAHAPb/AAAAAAIAAAAIAPX/AAAAAAIAAAAIAPb/AAAAAAIAAAAJAPX/AAAAAAIAAAAKAPX/AAAAAAIAAAANAPj/AAAAAAIAAAAOAPj/AAAAAAIAAAAOAPz/AAAAAAIAAAAPAPX/AAAAAAIAAAAQAPz/AAAAAAIAAAANAAAAAAAAAAIAAAAQAAAAAAAAAAIAAAABAAsAAAAAAAIAAAADAAoAAAAAAAIAAAAHAAwAAAAAAAIAAAAIAAcAAAAAAAIAAAAIAAoAAAAAAAIAAAACAAcAAAAAAAIAAAAEAAQAAAAAAAIAAADy/wUAAAAAAAIAAADz/wcAAAAAAAIAAADz/wgAAAAAAAIAAAD0/wYAAAAAAAIAAAD2/wkAAAAAAAIAAAD2/woAAAAAAAIAAAD4/wYAAAAAAAIAAAD7/w4AAAAAAAIAAAD9/wsAAAAAAAIAAAD+/w0AAAAAAAIAAAANAAcAAAAAAAIAAAAQAAkAAAAAAAIAAAAKAA0AAAAAAAIAAAALAA4AAAAAAAIAAAANAAsAAAAAAAIAAAAOAAwAAAAAAAIAAAD9//X/AAAAAAIAAAD///f/AAAAAAIAAAACAP3/AAAAAAIAAAABAPr/AAACAAAAAAD+/wcAAAACAAAAAAAAAAQAAAACAAAAAAALAPv/AAACAAAAAAAJAPn/AAACAAAAAAD4/wAAAAACAAAAAAAIAAAAAQAAAAcAAAALAP//AAAAAAAAAAAKAP3/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_oi8ly")
 
+[node name="LockedDoor" parent="Obstacles" instance=ExtResource("8_elpgg")]
+position = Vector2(136, 4)
+
 [node name="Player" parent="Obstacles" instance=ExtResource("1_2p8i2")]
 y_sort_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Obstacles/Player"]
 zoom = Vector2(5, 5)
+
+[connection signal="pressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_pressed"]
+[connection signal="unpressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_unpressed"]
