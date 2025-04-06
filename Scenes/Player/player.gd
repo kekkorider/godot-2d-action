@@ -11,7 +11,14 @@ func _ready() -> void:
     position = Game.player_spawn_position
 
 func _physics_process(_delta: float) -> void:
-  var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+  move_player()
+
+  push_blocks()
+
+  move_and_slide()
+
+func move_player() -> void:
+  var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
   velocity = direction * speed
 
   if velocity.x < 0:
@@ -25,11 +32,10 @@ func _physics_process(_delta: float) -> void:
   else:
     sprite.stop()
 
-  push_blocks(get_last_slide_collision())
 
-  move_and_slide()
+func push_blocks() -> void:
+  var collision := get_last_slide_collision()
 
-func push_blocks(collision: KinematicCollision2D) -> void:
   if collision:
     var node: Node2D = collision.get_collider()
 

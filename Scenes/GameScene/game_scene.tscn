@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://4o6uo54bx7id"]
+[gd_scene load_steps=17 format=4 uid="uid://4o6uo54bx7id"]
 
 [ext_resource type="PackedScene" uid="uid://box0cvn7lrchr" path="res://Scenes/Player/player.tscn" id="1_2p8i2"]
 [ext_resource type="Texture2D" uid="uid://vntmf70fbvws" path="res://Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetFloor.png" id="1_l6yvh"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://comx1s26t4g12" path="res://Scenes/LockedDoor/locked_door.tscn" id="8_elpgg"]
 [ext_resource type="PackedScene" uid="uid://p6i70i7743b8" path="res://Scenes/Block/ice_block.tscn" id="9_nr542"]
 [ext_resource type="PackedScene" uid="uid://cq2b2xecm81sn" path="res://Scenes/PuzzleButton/single_use_puzzle_button.tscn" id="10_g3lhp"]
+[ext_resource type="PackedScene" uid="uid://cx1vpygsjuphg" path="res://Scenes/NPC/npc.tscn" id="11_dc78n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04h35"]
 texture = ExtResource("1_l6yvh")
@@ -815,6 +816,9 @@ position = Vector2(79, 5)
 
 [node name="Block" parent="." instance=ExtResource("6_12ovb")]
 position = Vector2(40, 25)
+
+[node name="NPC" parent="." instance=ExtResource("11_dc78n")]
+position = Vector2(-20, -37)
 
 [node name="Obstacles" type="TileMapLayer" parent="."]
 y_sort_enabled = true
