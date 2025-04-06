@@ -22,7 +22,7 @@ font_size = 28
 
 [node name="NPC" type="StaticBody2D" groups=["interactable"]]
 process_mode = 3
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_bjna2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -67,7 +67,6 @@ anchor_bottom = 0.802279
 offset_top = -3.05176e-05
 offset_right = 261.073
 offset_bottom = 80.1234
-text = "Hello world!!"
 label_settings = SubResource("LabelSettings_n8r46")
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true

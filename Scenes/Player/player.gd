@@ -9,7 +9,7 @@ class_name Player
 @onready var interaction_area := $InteractionArea
 
 func _ready() -> void:
-    position = Game.player_spawn_position
+  position = Game.player_spawn_position
 
 func _physics_process(_delta: float) -> void:
   move_player()
@@ -48,11 +48,10 @@ func push_blocks() -> void:
       var normal: Vector2 = collision.get_normal()
       node.apply_central_force(normal * push_strength * -1)
 
-func _on_interaction_area_entered(body: StaticBody2D) -> void:
+func _on_interaction_area_entered(body: Node2D) -> void:
   if body.is_in_group('interactable'):
-    Game.player_can_interact = true
+    body.can_interact = true
 
-func _on_interaction_area_exited(body: StaticBody2D) -> void:
+func _on_interaction_area_exited(body: Node2D) -> void:
   if body.is_in_group('interactable'):
-    Game.player_can_interact = false
-    body.canvas_layer.visible = false
+    body.can_interact = false
