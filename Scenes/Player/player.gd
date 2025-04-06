@@ -6,6 +6,7 @@ class_name Player
 @export_range(0, 500, 5) var push_strength := 180.0
 
 @onready var sprite := $AnimatedSprite2D
+@onready var interaction_area := $InteractionArea
 
 func _ready() -> void:
     position = Game.player_spawn_position
@@ -23,12 +24,16 @@ func move_player() -> void:
 
   if velocity.x < 0:
     sprite.play("move_left")
+    interaction_area.position = Vector2(-5, 2)
   elif velocity.x > 0:
     sprite.play("move_right")
+    interaction_area.position = Vector2(5, 2)
   elif velocity.y < 0:
     sprite.play("move_up")
+    interaction_area.position = Vector2(0, -4)
   elif velocity.y > 0:
     sprite.play("move_down")
+    interaction_area.position = Vector2(0, 8)
   else:
     sprite.stop()
 
@@ -42,3 +47,12 @@ func push_blocks() -> void:
     if node.is_in_group('pushable'):
       var normal: Vector2 = collision.get_normal()
       node.apply_central_force(normal * push_strength * -1)
+
+func _on_interaction_area_entered(body: StaticBody2D) -> void:
+  if body.is_in_group('interactable'):
+    Game.player_can_interact = true
+
+func _on_interaction_area_exited(body: StaticBody2D) -> void:
+  if body.is_in_group('interactable'):
+    Game.player_can_interact = false
+    body.canvas_layer.visible = false

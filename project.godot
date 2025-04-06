@@ -35,6 +35,7 @@ folder_colors={
 [global_group]
 
 pushable="Nodes that can be pushed"
+interactable="Nodes the player can interact with"
 
 [input]
 
