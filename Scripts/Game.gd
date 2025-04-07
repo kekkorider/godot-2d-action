@@ -2,6 +2,8 @@ extends Node
 
 var player_spawn_position: Vector2
 
+var opened_chests: Array[String] = []
+
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("quit"):
         get_tree().quit()
