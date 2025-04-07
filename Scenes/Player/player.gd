@@ -7,6 +7,7 @@ class_name Player
 
 @onready var sprite := $AnimatedSprite2D
 @onready var interaction_area := $InteractionArea
+@onready var treasure_label := %TreasureLabel
 
 func _ready() -> void:
   position = Game.player_spawn_position
@@ -17,6 +18,8 @@ func _physics_process(_delta: float) -> void:
   push_blocks()
 
   move_and_slide()
+
+  treasure_label.text = str(Game.opened_chests.size())
 
 func move_player() -> void:
   var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
