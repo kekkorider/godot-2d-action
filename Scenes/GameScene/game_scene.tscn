@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://4o6uo54bx7id"]
+[gd_scene load_steps=26 format=4 uid="uid://4o6uo54bx7id"]
 
 [ext_resource type="PackedScene" uid="uid://box0cvn7lrchr" path="res://Scenes/Player/player.tscn" id="1_2p8i2"]
 [ext_resource type="Texture2D" uid="uid://vntmf70fbvws" path="res://Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetFloor.png" id="1_l6yvh"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://l36kfioojfmv" path="res://Ninja Adventure - Asset Pack/Actor/Characters/Villager2/Faceset.png" id="14_rpdpv"]
 [ext_resource type="PackedScene" uid="uid://d2w1ali7ln50m" path="res://Scenes/Switch/switch.tscn" id="16_6dkqd"]
 [ext_resource type="PackedScene" uid="uid://cuqpk41tanmmo" path="res://Scenes/TreasureChest/treasure_chest.tscn" id="17_jaj74"]
+[ext_resource type="AudioStream" uid="uid://c8rcbfhte3vji" path="res://Ninja Adventure - Asset Pack/Musics/11 - Clearing.ogg" id="18_pyj2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04h35"]
 texture = ExtResource("1_l6yvh")
@@ -899,6 +900,13 @@ position = Vector2(28, 5)
 
 [node name="Block" parent="Obstacles" instance=ExtResource("6_12ovb")]
 position = Vector2(40, 25)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("18_pyj2o")
+volume_db = -25.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_pressed"]
 [connection signal="unpressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_unpressed"]

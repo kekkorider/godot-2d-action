@@ -2,6 +2,7 @@ extends StaticBody2D
 
 @onready var canvas_layer := $CanvasLayer
 @onready var message_label := $CanvasLayer/MessageLabel
+@onready var audio_player := $AudioStreamPlayer2D
 
 var can_interact := false
 var dialogue_index := 0
@@ -16,6 +17,8 @@ func _input(event: InputEvent) -> void:
 
 			message_label.text = dialogue_lines[dialogue_index]
 			dialogue_index += 1
+
+			audio_player.play()
 		else:
 			canvas_layer.visible = false
 			dialogue_index = 0
