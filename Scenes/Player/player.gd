@@ -58,3 +58,12 @@ func _on_interaction_area_entered(body: Node2D) -> void:
 func _on_interaction_area_exited(body: Node2D) -> void:
   if body.is_in_group('interactable'):
     body.can_interact = false
+
+func _on_hitbox_body_entered(_body: CharacterBody2D) -> void:
+  Game.player_hp -= 1
+
+  if Game.player_hp <= 0: die()
+
+func die() -> void:
+  get_tree().call_deferred('reload_current_scene')
+  Game.player_hp = 3
