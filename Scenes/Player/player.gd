@@ -9,6 +9,8 @@ class_name Player
 @onready var interaction_area := $InteractionArea
 @onready var treasure_label := %TreasureLabel
 @onready var life_sprite := %LifeSprite
+@onready var sword := $Sword
+@onready var sword_area := %SwordArea2D
 
 func _ready() -> void:
   position = Game.player_spawn_position
@@ -17,6 +19,9 @@ func _physics_process(_delta: float) -> void:
   move_player()
 
   push_blocks()
+
+  if Input.is_action_just_pressed("action"):
+    attack()
 
   move_and_slide()
 
@@ -70,6 +75,18 @@ func _on_hitbox_body_entered(_body: CharacterBody2D) -> void:
 
   if Game.player_hp <= 0: die()
 
+func attack() -> void:
+  sword.visible = true
+  sword_area.monitoring = true
+
+  await get_tree().create_timer(0.4).timeout
+
+  sword.visible = false
+  sword_area.monitoring = false
+
 func die() -> void:
   get_tree().call_deferred('reload_current_scene')
   Game.player_hp = 3
+
+func _on_sword_body_entered(body: Node2D) -> void:
+  body.call_deferred('queue_free')
