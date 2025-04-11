@@ -8,6 +8,7 @@ class_name Player
 @onready var sprite := $AnimatedSprite2D
 @onready var interaction_area := $InteractionArea
 @onready var treasure_label := %TreasureLabel
+@onready var life_sprite := %LifeSprite
 
 func _ready() -> void:
   position = Game.player_spawn_position
@@ -51,6 +52,9 @@ func push_blocks() -> void:
       var normal: Vector2 = collision.get_normal()
       node.apply_central_force(normal * push_strength * -1)
 
+func update_hp_bar() -> void:
+  life_sprite.frame = Game.player_hp
+
 func _on_interaction_area_entered(body: Node2D) -> void:
   if body.is_in_group('interactable'):
     body.can_interact = true
@@ -61,6 +65,8 @@ func _on_interaction_area_exited(body: Node2D) -> void:
 
 func _on_hitbox_body_entered(_body: CharacterBody2D) -> void:
   Game.player_hp -= 1
+
+  update_hp_bar()
 
   if Game.player_hp <= 0: die()
 
