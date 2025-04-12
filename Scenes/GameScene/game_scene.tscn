@@ -842,8 +842,6 @@ position = Vector2(136, 4)
 
 [node name="Player" parent="Obstacles" instance=ExtResource("1_2p8i2")]
 y_sort_enabled = true
-speed = 60.0
-push_strength = 180.0
 
 [node name="Camera2D" type="Camera2D" parent="Obstacles/Player"]
 zoom = Vector2(5, 5)
@@ -912,7 +910,19 @@ autoplay = true
 parameters/looping = true
 
 [node name="SlimeEnemy" parent="." instance=ExtResource("19_coono")]
-position = Vector2(52, -8)
+position = Vector2(4, -74)
+
+[node name="SlimeEnemy2" parent="." instance=ExtResource("19_coono")]
+position = Vector2(-60, 119)
+
+[node name="SlimeEnemy3" parent="." instance=ExtResource("19_coono")]
+position = Vector2(-81, 83)
+
+[node name="SlimeEnemy4" parent="." instance=ExtResource("19_coono")]
+position = Vector2(160, 49)
+
+[node name="SlimeEnemy5" parent="." instance=ExtResource("19_coono")]
+position = Vector2(-113, -162)
 
 [connection signal="pressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_pressed"]
 [connection signal="unpressed" from="PuzzleButton" to="Obstacles/LockedDoor" method="_on_puzzle_button_unpressed"]
