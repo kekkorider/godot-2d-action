@@ -8,11 +8,15 @@ extends CharacterBody2D
 @onready var sprite := $AnimatedSprite2D
 @onready var anim_player := $AnimationPlayer
 @onready var damage_sfx := $DamageSFX
+@onready var particles := $GPUParticles2D
 
 var target: Node2D
 var direction_to_player := Vector2.ZERO
 
 func _physics_process(_delta: float) -> void:
+  if hp <= 0:
+    return
+
   chase_target()
   animate_enemy()
 
@@ -49,6 +53,7 @@ func hit(body: CharacterBody2D) -> void:
 
   hp -= 1
   if hp <= 0:
+    particles.emitting = true
     call_deferred('queue_free')
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
