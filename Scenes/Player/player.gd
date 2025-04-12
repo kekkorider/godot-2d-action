@@ -11,16 +11,19 @@ class_name Player
 @onready var life_sprite := %LifeSprite
 @onready var sword := $Sword
 @onready var sword_area := %SwordArea2D
+@onready var anim_player := $AnimationPlayer
+
+var is_attacking := false
 
 func _ready() -> void:
   position = Game.player_spawn_position
 
 func _physics_process(_delta: float) -> void:
-  move_player()
+  if not is_attacking: move_player()
 
   push_blocks()
 
-  if Input.is_action_just_pressed("action"):
+  if Input.is_action_just_pressed("action") and not interaction_area.has_overlapping_bodies():
     attack()
 
   move_and_slide()
@@ -76,13 +79,36 @@ func _on_hitbox_body_entered(_body: CharacterBody2D) -> void:
   if Game.player_hp <= 0: die()
 
 func attack() -> void:
+  if is_attacking: return
+
+  is_attacking = true
+
+  velocity = Vector2.ZERO
+
   sword.visible = true
   sword_area.monitoring = true
 
-  await get_tree().create_timer(0.4).timeout
+  var player_animation: String = sprite.animation
 
+  if player_animation == 'move_left':
+    sprite.play('attack_left')
+    anim_player.play('attack_left')
+  elif player_animation == 'move_right':
+    sprite.play('attack_right')
+    anim_player.play('attack_right')
+  elif player_animation == 'move_up':
+    sprite.play('attack_up')
+    anim_player.play('attack_up')
+  elif player_animation == 'move_down':
+    sprite.play('attack_down')
+    anim_player.play('attack_down')
+
+  await get_tree().create_timer(0.35).timeout
+
+  sprite.play(player_animation)
   sword.visible = false
   sword_area.monitoring = false
+  is_attacking = false
 
 func die() -> void:
   get_tree().call_deferred('reload_current_scene')
