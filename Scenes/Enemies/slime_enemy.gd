@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export_range(1, 10, 1) var hp := 2
 
 @onready var sprite := $AnimatedSprite2D
+@onready var anim_player := $AnimationPlayer
 
 var target: Node2D
 var direction_to_player := Vector2.ZERO

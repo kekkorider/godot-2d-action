@@ -82,6 +82,7 @@ func _on_hitbox_body_entered(body: CharacterBody2D) -> void:
 
   Game.player_hp -= 1
 
+  anim_player.play('flash')
   update_hp_bar()
 
   if Game.player_hp <= 0:
@@ -134,6 +135,7 @@ func _on_sword_body_entered(body: Node2D) -> void:
   var direction_to_enemy := global_position.direction_to(body.global_position)
   body.velocity += knockback_strength * direction_to_enemy
 
+  body.anim_player.play('flash')
   body.hp -= 1
   if body.hp <= 0:
     body.call_deferred('queue_free')
