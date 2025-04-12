@@ -21,6 +21,9 @@ func _ready() -> void:
   position = Game.player_spawn_position
 
 func _physics_process(_delta: float) -> void:
+  if Game.player_hp <= 0:
+    return
+
   if not is_attacking: move_player()
 
   push_blocks()
@@ -74,6 +77,9 @@ func _on_interaction_area_exited(body: Node2D) -> void:
     body.can_interact = false
 
 func _on_hitbox_body_entered(body: CharacterBody2D) -> void:
+  if Game.player_hp <= 0:
+    return
+
   Game.player_hp -= 1
 
   update_hp_bar()
@@ -117,6 +123,10 @@ func attack() -> void:
   is_attacking = false
 
 func die() -> void:
+  sprite.play('death')
+
+  await get_tree().create_timer(1.0).timeout
+
   get_tree().call_deferred('reload_current_scene')
   Game.player_hp = 3
 
