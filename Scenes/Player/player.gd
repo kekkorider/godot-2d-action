@@ -4,7 +4,7 @@ class_name Player
 
 @export_range(0, 1000, 10) var speed := 60.0
 @export_range(0, 500, 5) var push_strength := 180.0
-@export_range(0, 200, 5) var knockback_strength := 150.0
+@export_range(0, 300, 5) var knockback_strength := 200.0
 @export_range(0, 10, 0.5) var acceleration := 5.0
 
 @onready var sprite := $AnimatedSprite2D
@@ -139,12 +139,4 @@ func die() -> void:
   Game.player_hp = 3
 
 func _on_sword_body_entered(body: Node2D) -> void:
-  var direction_to_enemy := global_position.direction_to(body.global_position)
-  body.velocity += knockback_strength * direction_to_enemy
-
-  body.anim_player.play('flash')
-  body.hp -= 1
-  body.play_damage_sfx()
-
-  if body.hp <= 0:
-    body.call_deferred('queue_free')
+  body.hit(self)

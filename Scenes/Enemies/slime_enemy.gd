@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export_range(0, 1000, 10) var speed := 30.0
+@export_range(0, 300, 5) var knockback_strength := 200.0
 @export_range(0, 10, 0.5) var acceleration := 5.0
 @export_range(1, 10, 1) var hp := 2
 
@@ -39,8 +40,16 @@ func animate_enemy() -> void:
   elif direction_to_player.y < -threshold:
     sprite.play("move_up")
 
-func play_damage_sfx() -> void:
+func hit(body: CharacterBody2D) -> void:
+  var direction_to_enemy := body.global_position.direction_to(global_position)
+  velocity += knockback_strength * direction_to_enemy
+
+  anim_player.play('flash')
   damage_sfx.play()
+
+  hp -= 1
+  if hp <= 0:
+    call_deferred('queue_free')
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
   if not body is Player:
