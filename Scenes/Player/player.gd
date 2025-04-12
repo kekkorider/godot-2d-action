@@ -14,6 +14,8 @@ class_name Player
 @onready var sword := $Sword
 @onready var sword_area := %SwordArea2D
 @onready var anim_player := $AnimationPlayer
+@onready var damage_sfx := $DamageSFX
+@onready var sword_sfx := $SwordSFX
 
 var is_attacking := false
 
@@ -82,7 +84,10 @@ func _on_hitbox_body_entered(body: CharacterBody2D) -> void:
 
   Game.player_hp -= 1
 
+  damage_sfx.play()
+
   anim_player.play('flash')
+
   update_hp_bar()
 
   if Game.player_hp <= 0:
@@ -100,6 +105,8 @@ func attack() -> void:
 
   sword.visible = true
   sword_area.monitoring = true
+
+  sword_sfx.play()
 
   var player_animation: String = sprite.animation
 
@@ -137,5 +144,7 @@ func _on_sword_body_entered(body: Node2D) -> void:
 
   body.anim_player.play('flash')
   body.hp -= 1
+  body.play_damage_sfx()
+
   if body.hp <= 0:
     body.call_deferred('queue_free')

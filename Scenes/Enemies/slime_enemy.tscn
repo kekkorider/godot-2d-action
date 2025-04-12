@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://cmfiopqdq1d03"]
+[gd_scene load_steps=26 format=3 uid="uid://cmfiopqdq1d03"]
 
 [ext_resource type="Script" uid="uid://d4khynlpn3b2l" path="res://Scenes/Enemies/slime_enemy.gd" id="1_5uyk1"]
 [ext_resource type="Texture2D" uid="uid://crpqyu1g2hr0d" path="res://Ninja Adventure - Asset Pack/Actor/Monsters/Slime3/Slime3.png" id="1_p6sbt"]
+[ext_resource type="AudioStream" uid="uid://df013acl7fsma" path="res://Ninja Adventure - Asset Pack/Sounds/Game/Hit1.wav" id="3_sv1en"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uyk1"]
 atlas = ExtResource("1_p6sbt")
@@ -206,6 +207,10 @@ debug_color = Color(0.99, 0, 0.297, 0.207843)
 libraries = {
 &"": SubResource("AnimationLibrary_sv1en")
 }
+
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_sv1en")
+volume_db = -10.0
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea2D" to="." method="_on_detection_area_body_exited"]

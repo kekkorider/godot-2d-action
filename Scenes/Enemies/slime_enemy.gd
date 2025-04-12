@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var sprite := $AnimatedSprite2D
 @onready var anim_player := $AnimationPlayer
+@onready var damage_sfx := $DamageSFX
 
 var target: Node2D
 var direction_to_player := Vector2.ZERO
@@ -37,6 +38,9 @@ func animate_enemy() -> void:
     sprite.play("move_down")
   elif direction_to_player.y < -threshold:
     sprite.play("move_up")
+
+func play_damage_sfx() -> void:
+  damage_sfx.play()
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
   if not body is Player:
