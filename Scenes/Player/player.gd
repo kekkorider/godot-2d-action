@@ -4,6 +4,8 @@ class_name Player
 
 @export_range(0, 1000, 10) var speed := 60.0
 @export_range(0, 500, 5) var push_strength := 180.0
+@export_range(0, 200, 5) var knockback_strength := 150.0
+@export_range(0, 10, 0.5) var acceleration := 5.0
 
 @onready var sprite := $AnimatedSprite2D
 @onready var interaction_area := $InteractionArea
@@ -32,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 
 func move_player() -> void:
   var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-  velocity = direction * speed
+  velocity = velocity.move_toward(direction * speed, acceleration)
 
   if velocity.x < 0:
     sprite.play("move_left")
@@ -71,12 +73,16 @@ func _on_interaction_area_exited(body: Node2D) -> void:
   if body.is_in_group('interactable'):
     body.can_interact = false
 
-func _on_hitbox_body_entered(_body: CharacterBody2D) -> void:
+func _on_hitbox_body_entered(body: CharacterBody2D) -> void:
   Game.player_hp -= 1
 
   update_hp_bar()
 
-  if Game.player_hp <= 0: die()
+  if Game.player_hp <= 0:
+    die()
+  else:
+    var direction_to_player := body.global_position.direction_to(global_position)
+    velocity += 150 * direction_to_player
 
 func attack() -> void:
   if is_attacking: return
@@ -115,4 +121,9 @@ func die() -> void:
   Game.player_hp = 3
 
 func _on_sword_body_entered(body: Node2D) -> void:
-  body.call_deferred('queue_free')
+  var direction_to_enemy := global_position.direction_to(body.global_position)
+  body.velocity += knockback_strength * direction_to_enemy
+
+  body.hp -= 1
+  if body.hp <= 0:
+    body.call_deferred('queue_free')

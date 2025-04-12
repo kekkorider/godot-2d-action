@@ -146,6 +146,7 @@ radius = 60.0
 
 [node name="SlimeEnemy" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_5uyk1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
