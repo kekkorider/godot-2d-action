@@ -227,6 +227,7 @@ frame_progress = 0.75668
 shape = SubResource("CircleShape2D_1u7tg")
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
+position = Vector2(0, 1)
 
 [node name="DetectionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 shape = SubResource("CircleShape2D_p6sbt")

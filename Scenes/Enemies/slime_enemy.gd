@@ -54,6 +54,11 @@ func hit(body: CharacterBody2D) -> void:
   hp -= 1
   if hp <= 0:
     particles.emitting = true
+    sprite.visible = false
+    $CollisionShape2D.set_deferred('disabled', true)
+
+    await get_tree().create_timer(1.0).timeout
+
     call_deferred('queue_free')
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
