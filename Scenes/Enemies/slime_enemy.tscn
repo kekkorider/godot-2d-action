@@ -242,7 +242,9 @@ stream = ExtResource("3_sv1en")
 volume_db = -10.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 30
+one_shot = true
 explosiveness = 0.8
 process_material = SubResource("ParticleProcessMaterial_jwhlm")
 
